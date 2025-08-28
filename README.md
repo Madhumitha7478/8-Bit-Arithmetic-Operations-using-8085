@@ -3,7 +3,7 @@
 To perform 8-bit arithmetic operations such as addition, subtraction, multiplication, and division using the 8085 microprocessor.
 
 ## Apparatus Required:
-Laptop with internet connection
+ Laptop with internet connection
 
 ## Algorithm:
 
