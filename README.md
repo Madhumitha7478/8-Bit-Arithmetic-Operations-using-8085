@@ -3,7 +3,7 @@
 To perform 8-bit arithmetic operations such as addition, subtraction, multiplication, and division using the 8085 microprocessor.
 
 ## Apparatus Required:
-•	Laptop with internet connection
+Laptop with internet connection
 
 ## Algorithm:
 
@@ -15,14 +15,27 @@ To perform 8-bit arithmetic operations such as addition, subtraction, multiplica
 5.	Store the sum in memory location 4300H.
    
 ### Program:
+```
+LDA 4200H
+MOV B,A
+LDA 4201H
+ADD B
+STA 4300H
+JC STORE_CARRY
+HLT
+STORE_CARRY:MVI A,01H
+STA 4301H
+HLT
+```
 
-<img width="1545" height="911" alt="image" src="https://github.com/user-attachments/assets/47a90a36-f4d0-4b1a-988e-4ce6133740e7" />
+
 
 ### Output:
+<img width="1796" height="832" alt="Screenshot 2025-08-28 100518" src="https://github.com/user-attachments/assets/b95fa545-067e-499a-9ed8-b8f4529e92fd" />
 
-<img width="305" height="491" alt="image" src="https://github.com/user-attachments/assets/304fab6f-84eb-4de0-8d2e-bb399a3e93bb" />
 
-<img width="304" height="518" alt="image" src="https://github.com/user-attachments/assets/33072a85-f5bb-473a-9f7f-365c52a83222" />
+<img width="566" height="450" alt="Screenshot 2025-08-28 100546" src="https://github.com/user-attachments/assets/448c25e8-7149-490f-a562-63768e55e48d" />
+
 
 ### For Subtraction (Considering Greater Number):
 1.	Load the first number from memory location 4200H into register A.
@@ -32,16 +45,27 @@ To perform 8-bit arithmetic operations such as addition, subtraction, multiplica
 5.	Subtract the content of B from A.
 6.	Store the result in memory location 4300H.
 
+
 ### Program:
-
-<img width="1546" height="888" alt="image" src="https://github.com/user-attachments/assets/1600fc2d-6a85-4ec0-8eec-c3c76f77ffbe" />
-
-
+```
+LDA 4200H
+MOV C,A
+LDA 4201H
+CMP C
+JC SWAP
+MOV B,A
+MOV A,C
+SWAP: SUB B
+STA 4300H
+HLT
+```
 ### Output:
+<img width="1833" height="648" alt="image" src="https://github.com/user-attachments/assets/2ef20289-52c2-45bc-81af-cef382cab787" />
 
-<img width="305" height="443" alt="image" src="https://github.com/user-attachments/assets/d568cf4c-3494-4511-a231-a632fc4e73fc" />
 
-<img width="309" height="428" alt="image" src="https://github.com/user-attachments/assets/392d36d8-c269-4569-8aa0-c56a85544586" />
+<img width="466" height="467" alt="Screenshot 2025-08-28 101732" src="https://github.com/user-attachments/assets/b441ec53-2070-4467-a17a-bb3d817e61f7" />
+
+
 
 ### For Multiplication:
 1.	Load the first number from memory location 4200H into register A.
@@ -50,14 +74,28 @@ To perform 8-bit arithmetic operations such as addition, subtraction, multiplica
 4.	Store the result in memory locations 4300H and 4301H (if required for higher bits).
 
 ### Program:
+```
+LDA 4200H
+MOV C, A
+LDA 4201H
+MOV B,A
+MVI A, 00H
+LOOP: ADD C
+DCR B
+JNZ LOOP
+STA 4300H
+HLT
+```
 
-<img width="1525" height="786" alt="image" src="https://github.com/user-attachments/assets/4815e88b-f25d-4180-950d-0a1b82847a22" />
+
 
 ### Output:
 
-<img width="302" height="466" alt="image" src="https://github.com/user-attachments/assets/73f94387-114e-4db3-8704-f3b029c96580" />
+<img width="1809" height="825" alt="Screenshot 2025-08-28 102604" src="https://github.com/user-attachments/assets/106865c4-7511-4b77-894d-bd3e1f80aaaa" />
 
-<img width="306" height="430" alt="image" src="https://github.com/user-attachments/assets/496177b6-53ed-48e4-818c-91615d4d40de" />
+
+<img width="530" height="508" alt="Screenshot 2025-08-28 102615" src="https://github.com/user-attachments/assets/58d6bc9f-a461-4b35-a627-6edc86075a99" />
+
 
 ### For Division:
 1.	Load the dividend from memory location 4200H into register A.
@@ -65,15 +103,38 @@ To perform 8-bit arithmetic operations such as addition, subtraction, multiplica
 3.	Perform division using repeated subtraction.
 4.	Store the quotient in 4300H and remainder in 4301H.
 
-### Program:
 
-<img width="1558" height="1085" alt="image" src="https://github.com/user-attachments/assets/ad57b74c-fb3e-4ade-813b-b60d8b62391f" />
+### Program:
+```
+LDA 4200H
+MOV C,A
+LDA 4201H
+MOV B, A
+MVI A, 00H
+LOOP: MOV A,C
+CMP B
+JC END
+SUB B
+MOV C, A
+INR D
+JMP LOOP
+END: MOV A, D
+STA 4300H
+MOV A, C
+STA 4301H
+HLT
+```
+
+
 
 ### Output:
 
-<img width="298" height="488" alt="image" src="https://github.com/user-attachments/assets/79389f3a-a354-40b5-bd18-f3171d0a74b9" />
+<img width="1804" height="865" alt="Screenshot 2025-08-28 103327" src="https://github.com/user-attachments/assets/5f5f7087-682f-4dd4-acf3-86961a59b974" />
 
-<img width="300" height="490" alt="image" src="https://github.com/user-attachments/assets/a2cee633-be25-46bb-8740-3bce656f4460" />
+
+<img width="547" height="500" alt="Screenshot 2025-08-28 103336" src="https://github.com/user-attachments/assets/9cd894a1-ec96-4eec-800c-ce338a2f2790" />
+
+
 
 ## Result:
 The 8-bit arithmetic operations using the 8085 microprocessor have been successfully executed and verified using memory access for input and output.
